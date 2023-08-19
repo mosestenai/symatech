@@ -1,0 +1,501 @@
+:root {
+  --primarycolor: #09476F;
+  --secondarycolor: #324f5f;
+  --white: #ffffff;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.whatsappicon {
+  background-color: #44cc00;
+  height: 70px;
+  width: 70px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapwhatsapp {
+  z-index: 10;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.whatsappustext {
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.wrapmessagemenu {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.startchattext {
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.chatstart {
+  background-color: #009ce0;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.companyname {
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.onlinedot {
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 100%;
+  margin-left: 3px;
+}
+
+.chatheader {
+  background: white;
+  padding: 10px 0px;
+  height: 10%;
+}
+
+.typicallyreplytext {
+  font-weight: 300;
+  color: gray;
+}
+
+.wrapchatmessages {
+  overflow-y: scroll;
+  height: 300px;
+  background-color: #d5e9f1;
+}
+
+.wrapstartmessagediv {
+  padding-top: 10px;
+  display: flex;
+}
+
+.agentpic {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+
+.poweredbydiv {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 12px;
+  color: rgb(153, 151, 151);
+}
+
+.wrapstartupmessage {
+  background-color: white;
+  padding: 10px 0px;
+}
+
+.pleasetext {
+  font-size: 13px;
+  text-align: center;
+}
+
+.chatmine {
+  background-color: #009ce0;
+  color: white;
+  width: 60%;
+  margin-left: 30%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.chatsender {
+  width: 60%;
+  margin: 10px 0px 10px 5px;
+  padding: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 1px 2px 3px #c2b8b8;
+  background-color: white;
+}
+
+.messagetext {
+  color: white;
+}
+
+.adminmessageconvo {
+  height: 150px;
+  overflow: scroll;
+}
+
+.chatwrapdiv {
+  width: 80%;
+  overflow: hidden;
+}
+
+
+
+.offlinediv {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  background-color: #0a2540;
+  color: white;
+  font-size: 12px;
+  padding: 3px 0px;
+  z-index: 10;
+}
+
+.onlinediv {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  background-color: green;
+  color: white;
+  font-size: 12px;
+  padding: 3px 0px;
+  z-index: 10;
+}
+
+.appbarstyle {
+  display: flex;
+  justify-content: space-between;
+  width: 82%;
+  margin-left: 18%;
+}
+
+
+.wrapmoddivs {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapandivs {
+  display: flex;
+  width: 31%;
+  background-color: rgb(224, 224, 224);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.slimdiv1 {
+  width: 4%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #092738;
+}
+
+.andivright {
+  width: 98%;
+  border: 1px solid #d4d4d4;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 20px;
+}
+
+.andivrightdiv {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.andivrightpercent {
+  display: flex;
+  color: #092738;
+}
+
+.shoppingiconprimary {
+  background-color: #092738;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.andivrightnumber {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primarycolor);
+}
+
+.andivrighttext {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--primarycolor);
+}
+
+
+/* div two */
+.andivrightpercent2 {
+  display: flex;
+  color: #ff8601;
+}
+
+.slimdiv2 {
+  width: 4%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ff8601;
+}
+
+.shoppingiconprimary2 {
+  background-color: #ff8601;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.andivrightnumber2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff8601;
+}
+
+.andivrighttext2 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #ff8601;
+}
+
+
+/* div two */
+.andivrightpercent3 {
+  display: flex;
+  color: #c829c9;
+}
+
+.slimdiv3 {
+  width: 4%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #c829c9;
+}
+
+.shoppingiconprimary3 {
+  background-color: #c829c9;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.andivrightnumber3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #c829c9;
+}
+
+.andivrighttext3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #c829c9;
+}
+
+.routepathwrap {
+  display: flex;
+}
+
+.routepathmain {
+  font-weight: bold;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.routepathminor {
+  font-weight: 200;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+.overflowdiv {
+  height: 500px;
+  overflow: scroll;
+}
+
+.containerwithshadow {
+  box-shadow: 1px 2px 6px #c7c6c6;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  position: relative;
+}
+
+.uploaddivsmall {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: dotted;
+  border-radius: 10;
+  cursor: pointer;
+  padding: 10px;
+  border-color: silver;
+  height: 150px;
+  width: 150px;
+  border-width: 2px;
+
+}
+
+.availabledot {
+  top: 3px;
+  left: 3px;
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 100%;
+  position: absolute;
+}
+
+.notavailabledot {
+  top: 3px;
+  left: 3px;
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  border-radius: 100%;
+  position: absolute;
+}
+
+.userminipic {
+  height: 40px;
+  width: 40px;
+  border-radius: 3px;
+}
+
+.tablecontainer {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  height: 60vh;
+  overflow-y: scroll;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.wrapsettings {
+  margin-top: 70px;
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+}
+
+.settingsnav {
+  width: 30%;
+}
+
+.settingscontent {
+  width: 65%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+
+}
+
+.settingstitle {
+  font-weight: 800;
+  color: rgb(100, 98, 98);
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 20px;
+}
+
+.settingsactivelink {
+  display: flex;
+  color: var(--primarycolor);
+  padding: 10px;
+  background-color: #d4e0e6;
+  border-right: 5px solid var(--primarycolor);
+  cursor: pointer;
+  margin: 5px 0px;
+}
+
+.settingsinactivelink {
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+  color: gray;
+  margin: 5px 0px;
+  align-items: center;
+}
+
+.wrapimagechange {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.wrapprofile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profileleft {
+  width: 48%;
+}
+
+.profileright {
+  width: 48%;
+}
+
+.imageavatar {
+  height: 150px;
+  border-radius: 100%;
+  border: 1px solid var(--primarycolor);
+}
+.imagelogoavatar{
+  height: 50px;
+  border-radius: 100%;
+  border: 1px solid var(--primarycolor);
+}
+
+.wrapnotificationsdiv {
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+  color: gray;
+  margin: 5px 0px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.agentsdiv {
+  box-shadow: 2px 2px 2px 2px #c7c6c6;
+  border-radius: 10px;
+  width: 48%;
+  margin: 1%;
+  padding: 10px;
+}

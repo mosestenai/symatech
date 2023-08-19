@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz@8..144&display=swap');
+
+:root {
+    --primarycolor: #00588e;
+    --softwarecolor: #00588e;
+    /* --primarycolor: #fd0100;
+    --softwarecolor: #fd0100; */
+    --white: #ffffff;
+    --black: #000;
+    --headercolor: rgb(65, 58, 58);
+}

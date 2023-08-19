@@ -18,9 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
+        'phone',
         'password',
+        'type',
+        'wallet',
+        'activatedstatus',
+        'profileurl'
     ];
 
     /**
@@ -40,6 +45,23 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
+
+
+
+    // Define the one-to-many relationship with orders
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'userId', 'id');
+    }
+
+    // Override the boot method to load orders by default
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('withOrders', function ($query) {
+            $query->with('orders');
+        });
+    }
 }
