@@ -6,6 +6,7 @@ use App\Models\Messages;
 use Exception as GlobalException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use PHPMailer\PHPMailer\PHPMailer;
 
 
@@ -142,7 +143,10 @@ class Common
     //send stk push
     public static function Sendstkpush($amount, $phoneNumber, $orderid)
     {
-        $credentials = base64_encode(env('DARAJA_SECRET_KEY') . ':' . env('DARAJA_CONSUMER_KEY'));
+
+        $combined = env('DARAJA_CONSUMER_KEY') . ':' . env('DARAJA_CONSUMER_SECRET');
+        Log::info($combined);
+        $credentials = base64_encode($combined);
         $accessToken = Http::withHeaders(['Authorization' => 'Basic ' . $credentials])
             ->get('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials')
             ->json('access_token');
@@ -167,10 +171,11 @@ class Common
             'PartyA' => $phoneNumber,
             'PartyB' => $BusinessShortCode,
             'PhoneNumber' => $phoneNumber,
-            'CallBackURL' => 'https://ecogreenapp.herokuapp.com/apis/complete_transaction_api.php?token=Mk087308&orderid=' . $orderid,
+            'CallBackURL' => 'https://apisycommerce.theiplug.com/apis/buyers/completetransaction?token=sycommercetest?orderid=' . $orderid,
             'AccountReference' => 'SYCOMMERCE',
             'TransactionDesc' => 'PAYING ORDER AMOUNT FOR SYMACOMMERCE'
         ])->json();
+        Log::info($response);
 
         return $response['ResponseCode'] === 0;
     }

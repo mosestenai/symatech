@@ -27,18 +27,27 @@ Route::prefix('users')->controller(UserController::class)->group(function () {
     Route::post('login', 'login');
     //assets
     Route::get('assets/{filename}', 'Fetchassets');
+    //Site visits
+    Route::post('recordsitevisit', 'Recordsitevisit');
+    //products
+    Route::post('fetchproducts', 'Fetchproducts');
+
+    //basics
+    Route::post('updateuserinfo', 'Updateuserinfo')->middleware(['auth:sanctum', 'ability:Buyer,Superadmin']);
+    Route::post('syncuserdetails', 'Syncuserdetails')->middleware(['auth:sanctum', 'ability:Buyer,Superadmin']);
+    Route::post('changepassword', 'Changepassword')->middleware(['auth:sanctum', 'ability:Buyer,Superadmin']);
+    Route::post('uploadpic', 'Uploadprofilepic')->middleware(['auth:sanctum', 'ability:Buyer,Superadmin']);
 });
 
 //Buyer routes
 Route::prefix('buyer')->controller(BuyerController::class)->group(function () {
-    //basics
-    Route::post('updateuserinfo', 'Updateuserinfo')->middleware(['auth:sanctum', 'abilities:Buyer']);
-    Route::post('syncuserdetails', 'Syncuserdetails')->middleware(['auth:sanctum', 'abilities:Buyer']);
-    Route::post('changepassword', 'Changepassword')->middleware(['auth:sanctum', 'abilities:Buyer']);
-    Route::post('uploadpic', 'Uploadprofilepic')->middleware(['auth:sanctum', 'abilities:Buyer']);
+
     //orders
     Route::post('fetchmyorders', 'Fetchmyorders')->middleware(['auth:sanctum', 'abilities:Buyer']);
     Route::post('makeorder', 'Makeorder')->middleware(['auth:sanctum', 'abilities:Buyer']);
+
+    //mpesa
+    Route::post('completetransaction', 'Completedarajatrans');
 });
 
 //Admin routes
@@ -50,7 +59,9 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
     Route::post('fetchallorders', 'Fetchallorders')->middleware(['auth:sanctum', 'abilities:Superadmin']);
     //users
     Route::post('fetchusers', 'Fetchusers')->middleware(['auth:sanctum', 'abilities:Superadmin']);
-    Route::post('changeactivationstatus', 'Changeactivationstatus')->middleware(['auth:sanctum', 'abilities:Superadmin']);
+    Route::post('changeuserstatus', 'Changeactivationstatus')->middleware(['auth:sanctum', 'abilities:Superadmin']);
     //activity logs
     Route::post('fetchactivitylogs', 'Fetchactivitylogs')->middleware(['auth:sanctum', 'abilities:Superadmin']);
+    //Site visits
+    Route::post('fetchsitevisits', 'Fetchsitevisits')->middleware(['auth:sanctum', 'abilities:Superadmin']);
 });

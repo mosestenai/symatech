@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Utility\Common;
+use App\Models\Activitylogs;
 use App\Models\Deletedaccounts;
+use App\Models\Products;
+use App\Models\Sitevisits;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -103,6 +106,11 @@ class UserController extends Controller
 
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
+            //save activity
+            $newactivity = new Activitylogs();
+            $newactivity->userId = $user->id;
+            $newactivity->action = 'Login';
+            $newactivity->save();
             $user->token = $request->user()->createToken('Commerceuser', [$user->type])->plainTextToken;
             return response()->json($user);
         } else {
@@ -147,6 +155,32 @@ class UserController extends Controller
                 // Add more cases for different file extensions as needed
             default:
                 return 'application/octet-stream';
+        }
+    }
+
+    //record site visits
+    public function Recordsitevisit(Request $request)
+    {
+        $fingerprint = $request->fingerprint;
+
+        $checkuser = Sitevisits::where('fingerprint', $fingerprint)->get();
+
+        if (count($checkuser) < 1) {
+            $newvisit = new Sitevisits();
+            $newvisit->fingerprint = $fingerprint;
+            $newvisit->save();
+            return Common::Returnsuccess("saved");
+        }
+    }
+
+    //Fetch products
+    public function Fetchproducts(Request $request)
+    {
+        $allproducts = Products::all();
+        if (count($allproducts) > 0) {
+            return $allproducts;
+        } else {
+            return Common::Returnerror("No products at the moment");
         }
     }
 }

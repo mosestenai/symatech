@@ -6,9 +6,11 @@ use App\Http\Utility\Common;
 use App\Models\Activitylogs;
 use App\Models\Orders;
 use App\Models\Products;
+use App\Models\Sitevisits;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -75,24 +77,55 @@ class AdminController extends Controller
     //Post products
     public function Postproducts(Request $request)
     {
-        $products = json_decode($request->input('products'), true);
+        $products = $request->products;
 
         if (count($products) > 0) {
             $baseurl = $request->baseurl;
             foreach ($products as $productData) {
-                $name = $productData['name'];
-                $description = $productData['description'];
-                $category = $productData['category'];
-                $price = $productData['price'];
-                $quantity = $productData['quantity'];
+                $name = $productData['productName'];
+                $description = $productData['productDescription'];
+                $category = $productData['productCategory'];
+                $price = $productData['productPrice'];
+                $quantity = $productData['productQuantity'];
 
                 // Store images and get image URLs
                 $imageUrls = [];
-                foreach ($productData['images'] as $image) {
-                    $imageName = time() . '_' . $image->getClientOriginalName();
-                    $image->storeAs('public/assets', $imageName);
-                    $imageUrls[] = $baseurl + Storage::url('assets/' . $imageName);
+                foreach ($productData['productImages'] as $imageData) {
+                    $imagestring = $imageData['imagestring'];
+
+                    // Remove the Data URI prefix
+                    $base64Data = substr($imagestring, strpos($imagestring, ',') + 1);
+
+                    $imageData = base64_decode($base64Data);
+
+                    // Generate a unique image name
+                    $imageName = time() . '_' . uniqid() . '.png'; // You can adjust the file extension as needed
+
+                    // Define the public path to the assets directory
+                    $publicAssetsPath = public_path('assets');
+
+                    // Ensure the directory exists, create if not
+                    if (!file_exists($publicAssetsPath)) {
+                        mkdir($publicAssetsPath, 0777, true);
+                    }
+
+                    // Save the decoded image data as a file
+                    $imagePath = $publicAssetsPath . '/' . $imageName;
+
+                    // Use file_put_contents to create the image file
+                    $success = file_put_contents($imagePath, $imageData);
+
+                    if ($success !== false) {
+                        // Construct the image URL
+                        $imageUrl = $baseurl . 'assets/' . $imageName;
+                        $imageUrls[] = $imageUrl;
+                    } else {
+                        // Handle the case where the image creation failed
+                        // You might want to log an error message or take appropriate action
+                    }
                 }
+
+
 
                 // Create product record with image URLs
                 $product = new Products();
@@ -137,5 +170,17 @@ class AdminController extends Controller
         Products::whereIn('id', $productIds)->delete();
 
         return Common::Returnsuccess("Deleted successfully");
+    }
+
+    //fetch site sitevisits
+    public function Fetchsitevisits(Request $request)
+    {
+        $sitevisits = Sitevisits::all();
+
+        if (count($sitevisits) > 0) {
+            return $sitevisits;
+        } else {
+            return Common::Returnerror("No site visits yet");
+        }
     }
 }

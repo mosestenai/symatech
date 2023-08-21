@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('productIds')->nullable();
             $table->string('orderstatus')->nullable();
             $table->string('paymentstatus')->nullable();
+            $table->integer('totalamount')->nullable();
             $table->timestamps();
             // Add foreign keys
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');

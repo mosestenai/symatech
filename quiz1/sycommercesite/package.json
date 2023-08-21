@@ -24,6 +24,8 @@
     "crypto-js": "^4.1.1",
     "get-browser-fingerprint": "^3.0.0",
     "hmacsha1": "^1.0.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "material-ui-popup-state": "^5.0.9",
     "react": "^18.2.0",
     "react-append-head": "^1.0.16",

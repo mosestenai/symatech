@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('activitylogs', function (Blueprint $table) {
+        Schema::create('sitevisits', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('userId')->nullable();
-            $table->longText('action');
+            $table->string('fingerprint')->nullable();
             $table->timestamps();
-            // Add foreign keys
-            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

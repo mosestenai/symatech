@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Utility\Common;
+use App\Models\Activitylogs;
 use App\Models\Orders;
 use App\Models\Products;
+use App\Models\Transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -136,7 +138,7 @@ class BuyerController extends Controller
 
         foreach ($products as $product) {
             $productId = $product['id'];
-            $quantity = $product['quantity'];
+            $quantity = $product['buyquantity'];
 
             // Retrieve the product's price from the database
             $productPrice = Products::where('id', $productId)->value('price');
@@ -156,11 +158,71 @@ class BuyerController extends Controller
         $neworder->productIds = json_encode($productIds);
         $neworder->orderstatus = 'placed';
         $neworder->paymentstatus = 'unpaid';
+        $neworder->totalamount = $totalAmount;
         $neworder->save();
+        //records activity
+        $newactivity = new Activitylogs();
+        $newactivity->userId = $user->id;
+        $newactivity->action = 'Order placed. Order id' . $neworder->id;
+        $newactivity->save();
+
+        $userphone = $user->phone;
+
+        // Check if the phone number starts with "07" or "7"
+        if (strpos($userphone, '07') === 0 || strpos($userphone, '7') === 0) {
+            // Replace the initial "07" or "7" with "2547"
+            $userphone = '2547' . substr($userphone, 2);
+        }
 
         // Send the calculated total amount to the Sendstkpush function
-        Common::Sendstkpush($totalAmount, $user->phone, $neworder->id);
+        Common::Sendstkpush($totalAmount, $userphone, $neworder->id);
 
         return Common::Returnsuccess("Order placed successfully");
+    }
+
+
+    //complete mpesa transaction
+    public function Completedarajatrans(Request $request)
+    {
+        $orderid = $request->query('orderid');
+        $token = $request->input('token');
+        if ($token != 'sycommercetest') {
+            return response()->json(['message' => 'Invalid authorization'], 403);
+        }
+        //get the order details 
+        $order = Orders::find($orderid);
+
+        //get the contents sent from mpesa
+        $json = $request->getContent();
+        $data = json_decode($json, true);
+
+        $MerchantRequestID = $data['Body']['stkCallback']['MerchantRequestID'];
+        $CheckoutRequestID = $data['Body']['stkCallback']['CheckoutRequestID'];
+        $ResultCode = $data['Body']['stkCallback']['ResultCode'];
+        $ResultDesc = $data['Body']['stkCallback']['ResultDesc'];
+        $TransactionDate = $data['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value'];
+        $Amount = $data['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value'];
+        $MpesaReceiptNumber = $data['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value'];
+        $PhoneNumber = $data['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value'];
+
+        //if the amount paid matches the orderamount required
+        if ($Amount == $order->totalamount) {
+            $order->orderstatus = 'intransit';
+            $order->paymentstatus = 'paid';
+            $order->save();
+        }
+        //save the transaction
+        Transactions::create([
+            'MerchantRequestID' => $MerchantRequestID,
+            'CheckoutRequestID' => $CheckoutRequestID,
+            'ResultCode' => $ResultCode,
+            'ResultDesc' => $ResultDesc,
+            'Amount' => $Amount,
+            'MpesaReceiptNumber' => $MpesaReceiptNumber,
+            'TransactionDate' => $TransactionDate,
+            'PhoneNumber' => $PhoneNumber
+        ]);
+
+        return response()->json(['ResultCode' => 0, 'ResultDesc' => 'Confirmation received successfully']);
     }
 }

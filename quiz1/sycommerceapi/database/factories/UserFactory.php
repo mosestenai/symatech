@@ -25,8 +25,7 @@ class UserFactory extends Factory
             'username' => env('SUPERADMINUSERNAME'),
             'phone' => env('SUPERADMINPHONE'),
             'type' => 'Superadmin',
-            'datejoined' => now(),
-            'email_verified_at' => now(),
+            'activatedstatus' => 1,
             'password' => $password, // password
         ];
     }

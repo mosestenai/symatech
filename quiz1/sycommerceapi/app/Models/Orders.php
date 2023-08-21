@@ -12,7 +12,8 @@ class Orders extends Model
         'userId',
         "productIds",
         "orderstatus",
-        'paymentstatus'
+        'paymentstatus',
+        'totalamount'
     ];
 
     // Define the one-to-one relationship with user
